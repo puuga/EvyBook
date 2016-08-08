@@ -32,6 +32,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ivProfile"
         android:layout_centerHorizontal="true"
-        android:text="Large Text"
+        android:text=""
         android:textAppearance="?android:attr/textAppearanceLarge" />
 </RelativeLayout>

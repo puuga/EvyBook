@@ -256,6 +256,7 @@ public class LoginActivityFragment extends Fragment {
                 setUserProfileWithFirebase();
 
                 activity.setResult();
+                activity.finish();
 
 //                gotoMainActivity();
             }
