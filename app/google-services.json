@@ -1,0 +1,136 @@
+{
+  "project_info": {
+    "project_number": "1005231655243",
+    "firebase_url": "https://evytink-69761.firebaseio.com",
+    "project_id": "evytink-69761",
+    "storage_bucket": "evytink-69761.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1005231655243:android:91a7f4b4234788ca",
+        "android_client_info": {
+          "package_name": "com.tsd3v.nz.evytink"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1005231655243-vifoco81omdfqm6npjt84e0bkp3ile0v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tsd3v.nz.evytink",
+            "certificate_hash": "A18D30B4115CC4A7964AE6E331E8363F45604378"
+          }
+        },
+        {
+          "client_id": "1005231655243-svbf81bsmbcqqge2ku0eqvnrv8ekhrq8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tsd3v.nz.evytink",
+            "certificate_hash": "27D2D926FE5E7AB9F18E125045E2572DD3F1058C"
+          }
+        },
+        {
+          "client_id": "1005231655243-6vnosu1bh6tj3cb4nk66qja25objlgsl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5RDQYmC6-J--4DiHj9gXum_GlrK3HFT0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1005231655243:android:86d6902a5868c6ec",
+        "android_client_info": {
+          "package_name": "com.appspace.evytink"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1005231655243-6ua13e966jtgvv1oigts9s4nsjheod5i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.appspace.evytink",
+            "certificate_hash": "27D2D926FE5E7AB9F18E125045E2572DD3F1058C"
+          }
+        },
+        {
+          "client_id": "1005231655243-55coqh1iol9vic70bqcsqtrcm2b7ehda.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.appspace.evytink",
+            "certificate_hash": "A18D30B4115CC4A7964AE6E331E8363F45604378"
+          }
+        },
+        {
+          "client_id": "1005231655243-6vnosu1bh6tj3cb4nk66qja25objlgsl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5RDQYmC6-J--4DiHj9gXum_GlrK3HFT0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1005231655243:android:be1ceaad91a25450",
+        "android_client_info": {
+          "package_name": "com.appspace.evybook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1005231655243-6vnosu1bh6tj3cb4nk66qja25objlgsl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5RDQYmC6-J--4DiHj9gXum_GlrK3HFT0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

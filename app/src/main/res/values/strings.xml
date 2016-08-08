@@ -1,6 +1,19 @@
 <resources>
     <string name="app_name">EvyBook</string>
+    <!--<string name="facebook_app_id">1345355772144460</string>-->
+    <!--<string name="fb_login_protocol_scheme">1345355772144460</string>-->
+    <string name="facebook_app_id">1166630520024561</string>
+    <string name="fb_login_protocol_scheme">1166630520024561</string>
+    <string name="login_ok">Login OK</string>
+    <string name="login_cancel">Login CANCEL</string>
+    <string name="need_login">Need login</string>
+    <string name="need_login_description">Need login</string>
+    <string name="ok">OK</string>
+    <string name="cancel">CANCEL</string>
+
+    <string name="progressing">progressing…</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_intro">IntroActivity</string>
+    <string name="title_activity_intro">Intro</string>
+    <string name="title_activity_login">Login</string>
 </resources>
