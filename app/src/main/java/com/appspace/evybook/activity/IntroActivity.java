@@ -8,14 +8,20 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.appspace.evybook.R;
+import com.appspace.evybook.util.FirebaseUserUtil;
 import com.appspace.evybook.util.Helper;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class IntroActivity extends AppCompatActivity {
+
+    final String TAG = "IntroActivity";
 
     CoordinatorLayout container;
 
@@ -29,7 +35,17 @@ public class IntroActivity extends AppCompatActivity {
         // TODO: check login
         if (FirebaseAuth.getInstance().getCurrentUser() == null)
             gotoLoginActivity();
-        else
+        else {
+            FirebaseUserUtil.updateProfilePhotoUri(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "User profile updated.");
+                    }
+                    gotoMainActivity();
+                }
+            });
+        }
             gotoMainActivity();
     }
 
