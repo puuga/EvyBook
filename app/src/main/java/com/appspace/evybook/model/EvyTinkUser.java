@@ -9,44 +9,44 @@ import com.google.gson.annotations.SerializedName;
  * Created by siwaweswongcharoen on 6/6/2016 AD.
  */
 public class EvyTinkUser implements Parcelable {
-    public String evyaccountid;
-    public String evytinkaccountid;
+    @SerializedName("evyaccountid") public String accountId;
+    @SerializedName("evytinkaccountid") public String evytinkAccountId;
     @SerializedName("firebase_uid") public String firebaseUid;
-    public String publishtitle;
-    public String evyfacebookid;
-    public String iddatetime;
-    public String imgprofile;
-    public String organizatitle;
-    public String promotitle;
-    public String report;
+    @SerializedName("publishtitle") public String publishTitle;
+    @SerializedName("evyfacebookid") public String facebookId;
+    @SerializedName("iddatetime") public String idDateTime;
+    @SerializedName("imgprofile") public String imgProfile;
+    @SerializedName("organizatitle") public String organizaTitle;
+    @SerializedName("promotitle") public String promoTitle;
+    @SerializedName("report") public String report;
 
     public EvyTinkUser() {
     }
 
     protected EvyTinkUser(Parcel in) {
-        evyaccountid = in.readString();
-        evytinkaccountid = in.readString();
+        accountId = in.readString();
+        evytinkAccountId = in.readString();
         firebaseUid = in.readString();
-        publishtitle = in.readString();
-        evyfacebookid = in.readString();
-        iddatetime = in.readString();
-        imgprofile = in.readString();
-        organizatitle = in.readString();
-        promotitle = in.readString();
+        publishTitle = in.readString();
+        facebookId = in.readString();
+        idDateTime = in.readString();
+        imgProfile = in.readString();
+        organizaTitle = in.readString();
+        promoTitle = in.readString();
         report = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(evyaccountid);
-        dest.writeString(evytinkaccountid);
+        dest.writeString(accountId);
+        dest.writeString(evytinkAccountId);
         dest.writeString(firebaseUid);
-        dest.writeString(publishtitle);
-        dest.writeString(evyfacebookid);
-        dest.writeString(iddatetime);
-        dest.writeString(imgprofile);
-        dest.writeString(organizatitle);
-        dest.writeString(promotitle);
+        dest.writeString(publishTitle);
+        dest.writeString(facebookId);
+        dest.writeString(idDateTime);
+        dest.writeString(imgProfile);
+        dest.writeString(organizaTitle);
+        dest.writeString(promoTitle);
         dest.writeString(report);
     }
 

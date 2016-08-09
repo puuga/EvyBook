@@ -19,7 +19,10 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.appspace.appspacelibrary.manager.Contextor;
+import com.appspace.appspacelibrary.util.LoggerUtils;
 import com.appspace.evybook.R;
+import com.appspace.evybook.adapter.BookAdapter;
+import com.appspace.evybook.model.EvyBook;
 import com.appspace.evybook.util.Helper;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,7 +30,9 @@ import com.google.firebase.auth.FirebaseUser;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements
+        View.OnClickListener,
+        BookAdapter.OnEvyBookItemClickCallback {
 
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
@@ -37,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageView ivProfile;
     TextView tvUsername;
 
+    MaterialDialog mProgressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initDrawer();
         initInstances();
 
-        loadData();
+        loadProfileData();
     }
 
     private void initDrawer() {
@@ -75,6 +82,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         ivProfile = (ImageView) findViewById(R.id.ivProfile);
         tvUsername = (TextView) findViewById(R.id.tvUsername);
+
+        mProgressDialog = new MaterialDialog.Builder(this)
+                .title(R.string.progressing)
+                .autoDismiss(false)
+                .progress(true, 0)
+                .build();
     }
 
     @Override
@@ -95,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (resultCode == Activity.RESULT_OK) {
                 Snackbar.make(container, R.string.login_ok, Snackbar.LENGTH_SHORT)
                         .show();
-                loadData();
+                loadProfileData();
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 if (FirebaseAuth.getInstance().getCurrentUser()==null) {
                     Snackbar.make(container, R.string.login_cancel, Snackbar.LENGTH_SHORT)
@@ -129,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivityForResult(i, Helper.LOGIN_RESUEST_CODE);
     }
 
-    private void loadData() {
+    private void loadProfileData() {
         setProfile();
     }
 
@@ -145,5 +158,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .into(ivProfile);
 
         tvUsername.setText(firebaseUser.getDisplayName());
+    }
+
+    public void showProgressDialog() {
+        mProgressDialog.show();
+    }
+
+    public void hideProgressDialog() {
+        mProgressDialog.dismiss();
+    }
+
+    @Override
+    public void onEvyBookItemDownloadClick(EvyBook book, int position) {
+        LoggerUtils.log2D("callback", "onEvyBookItemDownloadClick bookId:"+book.bookId);
+    }
+
+    @Override
+    public void onEvyBookItemCoverClick(EvyBook book, int position) {
+        LoggerUtils.log2D("callback", "onEvyBookItemCoverClick bookId:"+book.bookId);
     }
 }

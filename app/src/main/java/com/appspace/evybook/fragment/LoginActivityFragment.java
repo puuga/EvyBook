@@ -249,8 +249,8 @@ public class LoginActivityFragment extends Fragment {
                 EvyTinkUser evyTinkUser = response.body()[0];
 
                 DataStoreUtils.getInstance().setLogin(true);
-                DataStoreUtils.getInstance().setAppUserId(evyTinkUser.evyaccountid);
-                DataStoreUtils.getInstance().setFacebookId(evyTinkUser.evyfacebookid);
+                DataStoreUtils.getInstance().setAppUserId(evyTinkUser.accountId);
+                DataStoreUtils.getInstance().setFacebookId(evyTinkUser.facebookId);
 
                 activity.hideProgressDialog();
                 setUserProfileWithFirebase();

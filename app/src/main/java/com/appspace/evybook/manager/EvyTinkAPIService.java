@@ -1,6 +1,7 @@
 package com.appspace.evybook.manager;
 
 
+import com.appspace.evybook.model.EvyBook;
 import com.appspace.evybook.model.EvyTinkUser;
 
 import retrofit2.Call;
@@ -17,5 +18,10 @@ public interface EvyTinkAPIService {
             @Query("evarfid") String id,
             @Query("fname") String name,
             @Query("firebase_uid") String firebaseUid
+    );
+
+    @GET("betajsonevybook.aspx")
+    Call<EvyBook[]> loadBooks(
+            @Query("evarid") String userId
     );
 }
