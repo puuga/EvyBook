@@ -10,6 +10,7 @@
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         android:layout_alignBottom="@+id/ivBookCover"
         android:layout_alignEnd="@+id/tvPublisher"
         android:drawablePadding="8dp"

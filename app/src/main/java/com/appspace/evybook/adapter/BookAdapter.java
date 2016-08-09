@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.appspace.evybook.R;
 import com.appspace.evybook.model.EvyBook;
@@ -28,7 +29,9 @@ public class BookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public interface OnEvyBookItemClickCallback {
         void onEvyBookItemDownloadClick(EvyBook book, int position);
+
         void onEvyBookItemReadClick(EvyBook book, int position);
+
         void onEvyBookItemDeleteClick(EvyBook book, int position);
 
         void onEvyBookItemCoverClick(EvyBook book, int position);
@@ -58,11 +61,11 @@ public class BookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         switch (viewType) {
             case 0:
                 itemView = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.holder_book_download,parent,false);
+                        .inflate(R.layout.holder_book_download, parent, false);
                 return new BookDownloadHolder(itemView);
             case 1:
                 itemView = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.holder_book_read,parent,false);
+                        .inflate(R.layout.holder_book_read, parent, false);
                 return new BookReadHolder(itemView);
         }
         return null;
@@ -110,6 +113,7 @@ public class BookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 callback.onEvyBookItemDownloadClick(book, position);
 
                 view.setClickable(false);
+                ((Button) view).setText(R.string.downloading);
             }
         });
     }
@@ -131,8 +135,11 @@ public class BookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     boolean hasFileInStorage(EvyBook book) {
         File path = Environment
-                .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS+"/EvyBook/");
+                .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS + "/EvyBook/");
         File[] files = path.listFiles();
+        if (files == null) {
+            return false;
+        }
         for (File file : files) {
             if (file.getName().equals(book.fileName)) {
                 return true;

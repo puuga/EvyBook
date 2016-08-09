@@ -1,11 +1,15 @@
 package com.appspace.evybook.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -32,20 +36,7 @@ public class IntroActivity extends AppCompatActivity {
 
         initInstances();
 
-        // TODO: check login
-        if (FirebaseAuth.getInstance().getCurrentUser() == null)
-            gotoLoginActivity();
-        else {
-            FirebaseUserUtil.updateProfilePhotoUri(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        Log.d(TAG, "User profile updated.");
-                    }
-                    gotoMainActivity();
-                }
-            });
-        }
+        checkPermissionToDownloadBook();
     }
 
     private void initInstances() {
@@ -80,6 +71,49 @@ public class IntroActivity extends AppCompatActivity {
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case MainActivity.REQUEST_READ_EXTERNAL_STORAGE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted
+                    checkPermissionToDownloadBook();
+                }
+                return;
+
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    private void checkPermissionToDownloadBook() {
+        // check android.permission.WRITE_EXTERNAL_STORAGE permission
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED) {
+            checkLogin();
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    MainActivity.REQUEST_READ_EXTERNAL_STORAGE);
+        }
+    }
+
+    private void checkLogin() {
+        if (FirebaseAuth.getInstance().getCurrentUser() == null)
+            gotoLoginActivity();
+        else {
+            FirebaseUserUtil.updateProfilePhotoUri(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "User profile updated.");
+                    }
+                    gotoMainActivity();
+                }
+            });
+        }
     }
 
     protected void gotoLoginActivity() {

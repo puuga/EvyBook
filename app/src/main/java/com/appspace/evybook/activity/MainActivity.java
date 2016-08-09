@@ -53,8 +53,8 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity implements
         View.OnClickListener,
         BookAdapter.OnEvyBookItemClickCallback {
-    private static final int REQUEST_READ_EXTERNAL_STORAGE = 1;
-    private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 2;
+    public static final int REQUEST_READ_EXTERNAL_STORAGE = 1;
+    public static final int REQUEST_WRITE_EXTERNAL_STORAGE = 2;
 
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements
         initInstances();
 
         loadProfileData();
+        fragment.loadBook();
     }
 
     private void initDrawer() {
@@ -262,17 +263,21 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onEvyBookItemDeleteClick(EvyBook book, int position) {
+    public void onEvyBookItemDeleteClick(final EvyBook book, int position) {
         LoggerUtils.log2D("callback", "onEvyBookItemDeleteClick bookId:" + book.bookId);
 
-        File file = new File(
-                Environment
-                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS + "/EvyBook/")
-                        .getAbsolutePath()
-                        + "/" + book.fileName);
-
-        if (file.delete())
-            fragment.reloadRecyclerView();
+        MaterialDialog dialog = new MaterialDialog.Builder(this)
+                .title(R.string.delete_file)
+                .content(R.string.delete_file_description)
+                .positiveText(R.string.delete)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        deleteBook(book);
+                    }
+                })
+                .negativeText(R.string.cancel)
+                .show();
     }
 
     @Override
@@ -331,6 +336,17 @@ public class MainActivity extends AppCompatActivity implements
                         book.fileName
                 );
         lastDownload = downloadManager.enqueue(request);
+    }
+
+    private void deleteBook(EvyBook book) {
+        File file = new File(
+                Environment
+                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS + "/EvyBook/")
+                        .getAbsolutePath()
+                        + "/" + book.fileName);
+
+        if (file.delete())
+            fragment.reloadRecyclerView();
     }
 
     private BroadcastReceiver onEvent = new BroadcastReceiver() {

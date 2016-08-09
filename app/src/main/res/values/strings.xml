@@ -17,6 +17,8 @@
     <string name="downloading">Download…</string>
     <string name="read">Read</string>
     <string name="delete">Delete</string>
+    <string name="delete_file">Delete file</string>
+    <string name="delete_file_description">You can download again, any time.</string>
     <string name="download_complete">Download completed</string>
 
     <string name="progressing">progressing…</string>

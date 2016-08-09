@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="@layout/holder_book_download">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/shelf_fixed_v2"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        android:src="@drawable/shelf_fixed_v2" />
 
     <ImageView
         android:id="@+id/ivBookCover"
@@ -28,7 +28,8 @@
         android:layout_marginStart="16dp"
         android:layout_toEndOf="@+id/ivBookCover"
         android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/tvPublisher"
@@ -38,5 +39,6 @@
         android:layout_alignStart="@+id/tvBookTitle"
         android:layout_below="@+id/tvBookTitle"
         android:text="Small Text"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/black" />
 </merge>

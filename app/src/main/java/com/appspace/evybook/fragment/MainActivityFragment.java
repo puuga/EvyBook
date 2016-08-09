@@ -50,8 +50,6 @@ public class MainActivityFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-        loadBook();
     }
 
     private void initInstances(View view) {
@@ -61,11 +59,12 @@ public class MainActivityFragment extends Fragment {
         BookAdapter adapter = new BookAdapter(currentActivity, bookList);
         adapter.setCallback(currentActivity);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+//        recyclerView.setLayoutManager(new GridLayoutManager(currentActivity, 2));
         recyclerView.setLayoutManager(new LinearLayoutManager(currentActivity));
         recyclerView.setAdapter(adapter);
     }
 
-    private void loadBook() {
+    public void loadBook() {
         currentActivity.showProgressDialog();
         Call<EvyBook[]> call = ApiManager.getInstance().getEvyTinkAPIService()
                 .loadBooks(DataStoreUtils.getInstance().getAppUserId());
@@ -88,7 +87,7 @@ public class MainActivityFragment extends Fragment {
     }
 
     private void loadDataToRecyclerView(EvyBook[] books) {
-//        bookList.clear();
+        bookList.clear();
         LoggerUtils.log2D("api", "loadDataToRecyclerView:OK - " + bookList.size());
         bookList.addAll(Arrays.asList(books));
         LoggerUtils.log2D("api", "loadDataToRecyclerView:OK - " + bookList.size());

@@ -14,7 +14,8 @@
         android:layout_alignEnd="@+id/tvPublisher"
         android:drawablePadding="8dp"
         android:drawableStart="@drawable/ic_chrome_reader_mode_white_24dp"
-        android:text="@string/read" />
+        android:text="@string/read"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/btnDelete"
@@ -25,5 +26,6 @@
         android:layout_alignEnd="@+id/tvPublisher"
         android:drawablePadding="8dp"
         android:drawableStart="@drawable/ic_delete_white_24dp"
-        android:text="@string/delete" />
+        android:text="@string/delete"
+        android:textColor="@color/white" />
 </RelativeLayout>
