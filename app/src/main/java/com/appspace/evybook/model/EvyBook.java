@@ -11,8 +11,8 @@ import com.google.gson.annotations.SerializedName;
 public class EvyBook implements Parcelable {
     @SerializedName("eventevyid") public String bookId;
     @SerializedName("ddatetime") public String dateTime;
-    @SerializedName("filename_url") public String fileUrl;
-    @SerializedName("filename") public String fileName;
+    @SerializedName("filename") public String fileUrl;
+    @SerializedName("ebookfilename") public String fileName;
     @SerializedName("coverfilename") public String coverUrl;
     @SerializedName("publisher") public String publisher;
     @SerializedName("author") public String author;

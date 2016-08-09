@@ -1,8 +1,7 @@
-package com.appspace.evybook.view;
+package com.appspace.evybook.view.holder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,7 +15,6 @@ public class BookHolder extends RecyclerView.ViewHolder  {
     public ImageView ivBookCover;
     public TextView tvBookTitle;
     public TextView tvPublisher;
-    public Button btnDownload;
 
     public BookHolder(View itemView) {
         super(itemView);
@@ -24,6 +22,5 @@ public class BookHolder extends RecyclerView.ViewHolder  {
         ivBookCover = (ImageView) itemView.findViewById(R.id.ivBookCover);
         tvBookTitle = (TextView) itemView.findViewById(R.id.tvBookTitle);
         tvPublisher = (TextView) itemView.findViewById(R.id.tvPublisher);
-        btnDownload = (Button) itemView.findViewById(R.id.btnDownload);
     }
 }

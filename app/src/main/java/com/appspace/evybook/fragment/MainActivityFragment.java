@@ -95,4 +95,9 @@ public class MainActivityFragment extends Fragment {
         recyclerView.getAdapter().notifyDataSetChanged();
         LoggerUtils.log2D("api", "loadDataToRecyclerView:OK - " + recyclerView.getAdapter().getItemCount());
     }
+
+    public void reloadRecyclerView() {
+        recyclerView.getAdapter().notifyDataSetChanged();
+        LoggerUtils.log2D("api", "reloadRecyclerView:OK - ");
+    }
 }

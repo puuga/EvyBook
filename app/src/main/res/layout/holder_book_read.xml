@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="220dp">
+
+    <include layout="@layout/content_holder_book" />
+
+    <Button
+        android:id="@+id/btnRead"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/ivBookCover"
+        android:layout_alignEnd="@+id/tvPublisher"
+        android:drawablePadding="8dp"
+        android:drawableStart="@drawable/ic_chrome_reader_mode_white_24dp"
+        android:text="@string/read" />
+
+    <Button
+        android:id="@+id/btnDelete"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnRead"
+        android:layout_alignEnd="@+id/tvPublisher"
+        android:drawablePadding="8dp"
+        android:drawableStart="@drawable/ic_delete_white_24dp"
+        android:text="@string/delete" />
+</RelativeLayout>

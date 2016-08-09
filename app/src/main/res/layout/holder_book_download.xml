@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="220dp">
+
+    <include layout="@layout/content_holder_book" />
+
+    <Button
+        android:id="@+id/btnDownload"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/ivBookCover"
+        android:layout_alignEnd="@+id/tvPublisher"
+        android:drawablePadding="8dp"
+        android:drawableStart="@drawable/ic_file_download_white_24dp"
+        android:text="@string/download" />
+</RelativeLayout>

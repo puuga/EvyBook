@@ -46,7 +46,6 @@ public class IntroActivity extends AppCompatActivity {
                 }
             });
         }
-            gotoMainActivity();
     }
 
     private void initInstances() {

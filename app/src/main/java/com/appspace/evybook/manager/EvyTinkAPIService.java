@@ -5,7 +5,10 @@ import com.appspace.evybook.model.EvyBook;
 import com.appspace.evybook.model.EvyTinkUser;
 
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -23,5 +26,13 @@ public interface EvyTinkAPIService {
     @GET("betajsonevybook.aspx")
     Call<EvyBook[]> loadBooks(
             @Query("evarid") String userId
+    );
+
+    @FormUrlEncoded
+    @POST("betajsonsaveebook_onshelf.aspx")
+    Call<EvyBook[]> postBookDownloadStat(
+            @Field("evyaccountid") String userId,
+            @Field("evyebookId") String bookId,
+            @Field("Downloadstatus") String downloadStatus
     );
 }
