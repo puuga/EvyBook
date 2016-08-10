@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -21,6 +22,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -39,6 +41,7 @@ import com.appspace.evybook.model.EvyBook;
 import com.appspace.evybook.util.DataStoreUtils;
 import com.appspace.evybook.util.Helper;
 import com.bumptech.glide.Glide;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.crash.FirebaseCrash;
@@ -56,10 +59,14 @@ public class MainActivity extends AppCompatActivity implements
     public static final int REQUEST_READ_EXTERNAL_STORAGE = 1;
     public static final int REQUEST_WRITE_EXTERNAL_STORAGE = 2;
 
+    private FirebaseAnalytics mFirebaseAnalytics;
+
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
     Toolbar toolbar;
     Button btnProfile;
+    Button btnStatement;
+    Button btnAbout;
     CoordinatorLayout container;
     ImageView ivProfile;
     TextView tvUsername;
@@ -104,10 +111,18 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void initInstances() {
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
         container = (CoordinatorLayout) findViewById(R.id.container);
 
         btnProfile = (Button) findViewById(R.id.btnProfile);
         btnProfile.setOnClickListener(this);
+
+        btnStatement = (Button) findViewById(R.id.btnStatement);
+        btnStatement.setOnClickListener(this);
+
+        btnAbout = (Button) findViewById(R.id.btnAbout);
+        btnAbout.setOnClickListener(this);
 
         ivProfile = (ImageView) findViewById(R.id.ivProfile);
         tvUsername = (TextView) findViewById(R.id.tvUsername);
@@ -119,7 +134,14 @@ public class MainActivity extends AppCompatActivity implements
                 .build();
 
         downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+
         fragment = (MainActivityFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
+
+//        long size = DownloadManager.getMaxBytesOverMobile(this) == null ? 0 : DownloadManager.getMaxBytesOverMobile(this);
+//        Log.d("max_file_size", String.valueOf(size));
+//
+//        long size2 = DownloadManager.getRecommendedMaxBytesOverMobile(this) == null ? 0 : DownloadManager.getRecommendedMaxBytesOverMobile(this);
+//        Log.d("max_file_size", String.valueOf(size2));
     }
 
     @Override
@@ -204,6 +226,10 @@ public class MainActivity extends AppCompatActivity implements
     public void onClick(View view) {
         if (view == btnProfile) {
             gotoLoginActivity();
+        } else if (view == btnStatement) {
+            //
+        } else if (view == btnAbout) {
+            //
         }
     }
 
@@ -246,6 +272,12 @@ public class MainActivity extends AppCompatActivity implements
         bookToDownload = book;
         // check permission to write
         checkPermissionToDownloadBook(book);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, book.bookId);
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, book.fileName);
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "book");
+        mFirebaseAnalytics.logEvent(Helper.DOWNLOAD_BOOK, bundle);
     }
 
     @Override
@@ -260,6 +292,12 @@ public class MainActivity extends AppCompatActivity implements
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(Uri.fromFile(file), "application/pdf");
         startActivity(intent);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, book.bookId);
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, book.fileName);
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "book");
+        mFirebaseAnalytics.logEvent(Helper.READ_BOOK, bundle);
     }
 
     @Override
@@ -347,6 +385,12 @@ public class MainActivity extends AppCompatActivity implements
 
         if (file.delete())
             fragment.reloadRecyclerView();
+
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, book.bookId);
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, book.fileName);
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "book");
+        mFirebaseAnalytics.logEvent(Helper.DELETE_BOOK, bundle);
     }
 
     private BroadcastReceiver onEvent = new BroadcastReceiver() {
@@ -356,7 +400,76 @@ public class MainActivity extends AppCompatActivity implements
             } else if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(intent.getAction())) {
                 Toast.makeText(context, R.string.download_complete, Toast.LENGTH_LONG).show();
                 fragment.reloadRecyclerView();
+//                showDownlaodFileInfo();
             }
         }
     };
+
+    void showDownlaodFileInfo() {
+        Cursor c =
+                downloadManager.query(new DownloadManager.Query().setFilterById(lastDownload));
+
+        if (c == null) {
+            Toast.makeText(this, "download_not_found",
+                    Toast.LENGTH_LONG).show();
+        } else {
+            c.moveToFirst();
+
+            Log.d(getClass().getName(),
+                    "COLUMN_ID: "
+                            + c.getLong(c.getColumnIndex(DownloadManager.COLUMN_ID)));
+            Log.d(getClass().getName(),
+                    "COLUMN_BYTES_DOWNLOADED_SO_FAR: "
+                            + c.getLong(c.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR)));
+            Log.d(getClass().getName(),
+                    "COLUMN_LAST_MODIFIED_TIMESTAMP: "
+                            + c.getLong(c.getColumnIndex(DownloadManager.COLUMN_LAST_MODIFIED_TIMESTAMP)));
+            Log.d(getClass().getName(),
+                    "COLUMN_LOCAL_URI: "
+                            + c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI)));
+            Log.d(getClass().getName(),
+                    "COLUMN_STATUS: "
+                            + c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS)));
+            Log.d(getClass().getName(),
+                    "COLUMN_REASON: "
+                            + c.getInt(c.getColumnIndex(DownloadManager.COLUMN_REASON)));
+
+            Toast.makeText(this, statusMessage(c), Toast.LENGTH_LONG)
+                    .show();
+
+            c.close();
+        }
+    }
+
+    private String statusMessage(Cursor c) {
+        String msg;
+
+        switch (c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS))) {
+            case DownloadManager.STATUS_FAILED:
+                msg = "download_failed";
+                break;
+
+            case DownloadManager.STATUS_PAUSED:
+                msg = "download_paused";
+                break;
+
+            case DownloadManager.STATUS_PENDING:
+                msg = "download_pending";
+                break;
+
+            case DownloadManager.STATUS_RUNNING:
+                msg = "download_in_progress";
+                break;
+
+            case DownloadManager.STATUS_SUCCESSFUL:
+                msg = "download_complete";
+                break;
+
+            default:
+                msg = "download_is_nowhere_in_sight";
+                break;
+        }
+
+        return (msg);
+    }
 }

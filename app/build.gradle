@@ -23,8 +23,8 @@ android {
         applicationId "com.appspace.evybook"
         minSdkVersion 17
         targetSdkVersion 24
-        versionCode 61
-        versionName "1.4.7"
+        versionCode 63
+        versionName "1.4.9"
     }
     buildTypes {
         release {

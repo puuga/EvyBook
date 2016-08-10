@@ -11,6 +11,8 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="profile">Profile</string>
+    <string name="statement">Statement</string>
+    <string name="about">About</string>
     <string name="open_drawer_menu">open drawer menu</string>
     <string name="close_drawer_menu">close drawer menu</string>
     <string name="download">Download</string>
