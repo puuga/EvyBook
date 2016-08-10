@@ -31,6 +31,6 @@ public class FacebookApiUtil {
                 option = "";
                 break;
         }
-        return "https://graph.facebook.com/v2.6/" + facebookId + "/picture" + option;
+        return "https://graph.facebook.com/v2.7/" + facebookId + "/picture" + option;
     }
 }
