@@ -14,6 +14,6 @@
         android:layout_alignBottom="@+id/ivBookCover"
         android:layout_alignEnd="@+id/tvPublisher"
         android:drawablePadding="8dp"
-        android:drawableStart="@drawable/ic_file_download_white_24dp"
+        android:drawableEnd="@drawable/ic_file_download_white_24dp"
         android:text="@string/download" />
 </RelativeLayout>

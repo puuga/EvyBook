@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cancel">ยกเลิก</string>
+    <string name="about">เกี่ยวกับ</string>
+    <string name="action_settings">ตั่งค่า</string>
+    <string name="delete">ลบ</string>
+    <string name="delete_file">ลบไฟล์</string>
+    <string name="delete_file_description">คุณสามารถโหลดกลับมาใหม่ได้ทุกเมื่อ</string>
+    <string name="download">ดาวน์โหลด</string>
+    <string name="download_complete">ดาวน์โหลดสำเร็จ</string>
+    <string name="downloading">กำลังดาวน์โหลด</string>
+    <string name="login_ok">เข้าสู้ระบบสำเร็จ</string>
+    <string name="login_cancel">ยกเลิกเข้าสู่ระบบ</string>
+    <string name="need_login">ต้องเข้าสู่ระบบก่อน</string>
+    <string name="need_login_description">จำเป็นต้องเข้าสู่ระบบก่อน เพื่อใช้งาน</string>
+    <string name="profile">โปรไฟล์</string>
+    <string name="progressing">กำลังดำเนินการ</string>
+    <string name="read">อ่าน</string>
+    <string name="title_activity_login">เข้าสู่ระบบ</string>
+    <string name="title_activity_main">หนังสือของฉัน</string>
+</resources>

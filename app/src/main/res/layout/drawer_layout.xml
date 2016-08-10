@@ -52,15 +52,6 @@
             android:theme="@style/CustomDrawerMenuItem" />
 
         <Button
-            android:id="@+id/btnStatement"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="start|center_vertical"
-            android:text="@string/statement"
-            android:theme="@style/CustomDrawerMenuItem" />
-
-        <Button
             android:id="@+id/btnAbout"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"

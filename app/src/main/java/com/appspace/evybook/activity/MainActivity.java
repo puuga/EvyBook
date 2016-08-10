@@ -38,8 +38,10 @@ import com.appspace.evybook.adapter.BookAdapter;
 import com.appspace.evybook.fragment.MainActivityFragment;
 import com.appspace.evybook.manager.ApiManager;
 import com.appspace.evybook.model.EvyBook;
+import com.appspace.evybook.util.ChromeCustomTabUtil;
 import com.appspace.evybook.util.DataStoreUtils;
 import com.appspace.evybook.util.Helper;
+import com.appspace.evybook.util.UrlHelper;
 import com.bumptech.glide.Glide;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
@@ -65,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements
     ActionBarDrawerToggle actionBarDrawerToggle;
     Toolbar toolbar;
     Button btnProfile;
-    Button btnStatement;
     Button btnAbout;
     CoordinatorLayout container;
     ImageView ivProfile;
@@ -117,9 +118,6 @@ public class MainActivity extends AppCompatActivity implements
 
         btnProfile = (Button) findViewById(R.id.btnProfile);
         btnProfile.setOnClickListener(this);
-
-        btnStatement = (Button) findViewById(R.id.btnStatement);
-        btnStatement.setOnClickListener(this);
 
         btnAbout = (Button) findViewById(R.id.btnAbout);
         btnAbout.setOnClickListener(this);
@@ -226,10 +224,8 @@ public class MainActivity extends AppCompatActivity implements
     public void onClick(View view) {
         if (view == btnProfile) {
             gotoLoginActivity();
-        } else if (view == btnStatement) {
-            //
         } else if (view == btnAbout) {
-            //
+            ChromeCustomTabUtil.open(this, UrlHelper.ABOUT_URL);
         }
     }
 
