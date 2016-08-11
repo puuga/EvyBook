@@ -35,4 +35,11 @@ public interface EvyTinkAPIService {
             @Field("evyebookId") String bookId,
             @Field("Downloadstatus") String downloadStatus
     );
+
+    @FormUrlEncoded
+    @POST("betajsondeletebookonshelf.aspx")
+    Call<EvyBook[]> postDeleteBook(
+            @Field("evyaccountid") String userId,
+            @Field("evytinkebookshelfId") String bookId
+    );
 }

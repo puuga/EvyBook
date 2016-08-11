@@ -372,21 +372,36 @@ public class MainActivity extends AppCompatActivity implements
         lastDownload = downloadManager.enqueue(request);
     }
 
-    private void deleteBook(EvyBook book) {
-        File file = new File(
-                Environment
-                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS + "/EvyBook/")
-                        .getAbsolutePath()
-                        + "/" + book.fileName);
+    private void deleteBook(final EvyBook book) {
+        showProgressDialog();
+        Call<EvyBook[]> call = ApiManager.getInstance().getEvyTinkAPIService()
+                .postDeleteBook(DataStoreUtils.getInstance().getAppUserId(), book.bookId);
+        call.enqueue(new Callback<EvyBook[]>() {
+            @Override
+            public void onResponse(Call<EvyBook[]> call, Response<EvyBook[]> response) {
+                LoggerUtils.log2D("api", "deleteBook: " + book.bookId);
+                File file = new File(
+                        Environment
+                                .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS + "/EvyBook/")
+                                .getAbsolutePath()
+                                + "/" + book.fileName);
 
-        if (file.delete())
-            fragment.reloadRecyclerView();
+                if (file.delete())
+                    fragment.loadBook();
 
-        Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, book.bookId);
-        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, book.fileName);
-        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "book");
-        mFirebaseAnalytics.logEvent(Helper.DELETE_BOOK, bundle);
+                Bundle bundle = new Bundle();
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, book.bookId);
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, book.fileName);
+                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "book");
+                mFirebaseAnalytics.logEvent(Helper.DELETE_BOOK, bundle);
+                hideProgressDialog();
+            }
+
+            @Override
+            public void onFailure(Call<EvyBook[]> call, Throwable t) {
+                FirebaseCrash.report(t);
+            }
+        });
     }
 
     private BroadcastReceiver onEvent = new BroadcastReceiver() {
