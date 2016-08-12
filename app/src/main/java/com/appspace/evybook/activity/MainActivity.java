@@ -375,19 +375,23 @@ public class MainActivity extends AppCompatActivity implements
     private void deleteBook(final EvyBook book) {
         showProgressDialog();
         Call<EvyBook[]> call = ApiManager.getInstance().getEvyTinkAPIService()
-                .postDeleteBook(DataStoreUtils.getInstance().getAppUserId(), book.bookId);
+                .postDeleteBook(DataStoreUtils.getInstance().getAppUserId(), book.bookShelfId);
         call.enqueue(new Callback<EvyBook[]>() {
             @Override
             public void onResponse(Call<EvyBook[]> call, Response<EvyBook[]> response) {
-                LoggerUtils.log2D("api", "deleteBook: " + book.bookId);
+                LoggerUtils.log2D("api", "deleteBook (bookShelfId): " + book.bookShelfId);
                 File file = new File(
                         Environment
                                 .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS + "/EvyBook/")
                                 .getAbsolutePath()
                                 + "/" + book.fileName);
 
-                if (file.delete())
-                    fragment.loadBook();
+                if (file.delete()) {
+//                    fragment.loadBook();
+                    EvyBook[] books = response.body();
+                    LoggerUtils.log2D("api", "count left books: " + books.length);
+                    fragment.loadDataToRecyclerView(books);
+                }
 
                 Bundle bundle = new Bundle();
                 bundle.putString(FirebaseAnalytics.Param.ITEM_ID, book.bookId);

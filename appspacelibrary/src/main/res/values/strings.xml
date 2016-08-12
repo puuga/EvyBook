@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">AppSpaceLibrary</string>
+    <string name="app_name" translatable="false">AppSpaceLibrary</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="no_internet_description">This app require internet. Please, connect to the internet.</string>
+    <string name="ok" translatable="false">OK</string>
+    <string name="cancel" translatable="false">Cancel</string>
 </resources>

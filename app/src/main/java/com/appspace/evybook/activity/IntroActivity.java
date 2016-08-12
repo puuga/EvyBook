@@ -16,6 +16,8 @@ import android.util.Log;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.appspace.appspacelibrary.util.InternetUtil;
+import com.appspace.appspacelibrary.util.LoggerUtils;
 import com.appspace.evybook.R;
 import com.appspace.evybook.util.FirebaseUserUtil;
 import com.appspace.evybook.util.Helper;
@@ -36,7 +38,7 @@ public class IntroActivity extends AppCompatActivity {
 
         initInstances();
 
-        checkPermissionToDownloadBook();
+        checkInternet();
     }
 
     private void initInstances() {
@@ -44,6 +46,28 @@ public class IntroActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         container = (CoordinatorLayout) findViewById(R.id.container);
+    }
+
+    private void checkInternet() {
+        if (!InternetUtil.isInternetAvailable(this)) {
+            LoggerUtils.log2D("internet", "no internet");
+
+            MaterialDialog dialog = new MaterialDialog.Builder(this)
+                    .title(R.string.no_internet)
+                    .content(R.string.no_internet_description)
+                    .positiveText(R.string.ok)
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            finish();
+                        }
+                    })
+                    .autoDismiss(false)
+                    .show();
+        } else {
+            checkPermissionToDownloadBook();
+        }
+
     }
 
     @Override

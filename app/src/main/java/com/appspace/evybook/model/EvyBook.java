@@ -18,17 +18,24 @@ public class EvyBook implements Parcelable {
     @SerializedName("author") public String author;
     @SerializedName("downloadstatus") public String downloadStatus;
     @SerializedName("title") public String title;
+    @SerializedName("bookshelfid") public String bookShelfId;
     @SerializedName("user") public EvyTinkUser user;
+
+    public EvyBook() {
+
+    }
 
     protected EvyBook(Parcel in) {
         bookId = in.readString();
         dateTime = in.readString();
         fileUrl = in.readString();
+        fileName = in.readString();
         coverUrl = in.readString();
         publisher = in.readString();
         author = in.readString();
         downloadStatus = in.readString();
         title = in.readString();
+        bookShelfId = in.readString();
         user = in.readParcelable(EvyTinkUser.class.getClassLoader());
     }
 
@@ -37,11 +44,13 @@ public class EvyBook implements Parcelable {
         dest.writeString(bookId);
         dest.writeString(dateTime);
         dest.writeString(fileUrl);
+        dest.writeString(fileName);
         dest.writeString(coverUrl);
         dest.writeString(publisher);
         dest.writeString(author);
         dest.writeString(downloadStatus);
         dest.writeString(title);
+        dest.writeString(bookShelfId);
         dest.writeParcelable(user, flags);
     }
 

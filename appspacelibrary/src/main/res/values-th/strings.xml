@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="no_internet">ไม่พบอินเตอร์เน็ท</string>
+    <string name="no_internet_description">โปรดเชื่อมต่ออินเตอร์เน็ท</string>
+</resources>

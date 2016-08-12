@@ -86,7 +86,7 @@ public class MainActivityFragment extends Fragment {
         });
     }
 
-    private void loadDataToRecyclerView(EvyBook[] books) {
+    public void loadDataToRecyclerView(EvyBook[] books) {
         bookList.clear();
         LoggerUtils.log2D("api", "loadDataToRecyclerView:OK - " + bookList.size());
         bookList.addAll(Arrays.asList(books));
