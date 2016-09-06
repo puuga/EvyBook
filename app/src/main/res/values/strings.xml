@@ -22,6 +22,8 @@
     <string name="delete_file">Delete file</string>
     <string name="delete_file_description">You can download again, any time.</string>
     <string name="download_complete">Download completed</string>
+    <string name="action_layout_list">List</string>
+    <string name="action_layout_grid">Grid</string>
 
     <string name="progressing">progressing…</string>
     <string name="title_activity_main">My Books</string>

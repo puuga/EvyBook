@@ -23,6 +23,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -58,6 +60,9 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity implements
         View.OnClickListener,
         BookAdapter.OnEvyBookItemClickCallback {
+
+    public enum ListType { LIST, GRID }
+
     public static final int REQUEST_READ_EXTERNAL_STORAGE = 1;
     public static final int REQUEST_WRITE_EXTERNAL_STORAGE = 2;
 
@@ -80,6 +85,8 @@ public class MainActivity extends AppCompatActivity implements
     EvyBook bookToDownload;
     MainActivityFragment fragment;
 
+    ListType currentListType = ListType.LIST;
+    Menu mMenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,12 +141,30 @@ public class MainActivity extends AppCompatActivity implements
         downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
 
         fragment = (MainActivityFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
+    }
 
-//        long size = DownloadManager.getMaxBytesOverMobile(this) == null ? 0 : DownloadManager.getMaxBytesOverMobile(this);
-//        Log.d("max_file_size", String.valueOf(size));
-//
-//        long size2 = DownloadManager.getRecommendedMaxBytesOverMobile(this) == null ? 0 : DownloadManager.getRecommendedMaxBytesOverMobile(this);
-//        Log.d("max_file_size", String.valueOf(size2));
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        if (currentListType == ListType.LIST) {
+            menu.getItem(0).setIcon(R.drawable.ic_grid_on_white_24dp);
+        } else {
+            menu.getItem(0).setIcon(R.drawable.ic_view_list_white_24dp);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_toggle_layout_type:
+                LoggerUtils.log2D("MenuItem", "action_toggle_layout_type");
+                toggleListType(item);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -200,7 +225,8 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(
+            int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case REQUEST_WRITE_EXTERNAL_STORAGE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -486,5 +512,17 @@ public class MainActivity extends AppCompatActivity implements
         }
 
         return (msg);
+    }
+
+    private void toggleListType(MenuItem item) {
+        if (currentListType == ListType.LIST) {
+            currentListType = ListType.GRID;
+            item.setIcon(R.drawable.ic_view_list_white_24dp);
+        } else {
+            currentListType = ListType.LIST;
+            item.setIcon(R.drawable.ic_grid_on_white_24dp);
+        }
+        fragment.toggleLayoutManager(currentListType);
+        LoggerUtils.log2D("toggleListType", String.valueOf(currentListType));
     }
 }

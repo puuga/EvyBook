@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +59,7 @@ public class MainActivityFragment extends Fragment {
         bookList = new ArrayList<>();
         BookAdapter adapter = new BookAdapter(currentActivity, bookList);
         adapter.setCallback(currentActivity);
+        adapter.setLayoutType(MainActivity.ListType.LIST);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 //        recyclerView.setLayoutManager(new GridLayoutManager(currentActivity, 2));
         recyclerView.setLayoutManager(new LinearLayoutManager(currentActivity));
@@ -93,6 +95,17 @@ public class MainActivityFragment extends Fragment {
         LoggerUtils.log2D("api", "loadDataToRecyclerView:OK - " + bookList.size());
         recyclerView.getAdapter().notifyDataSetChanged();
         LoggerUtils.log2D("api", "loadDataToRecyclerView:OK - " + recyclerView.getAdapter().getItemCount());
+    }
+
+    public void toggleLayoutManager(MainActivity.ListType listType) {
+        if (listType == MainActivity.ListType.LIST) {
+            ((BookAdapter) recyclerView.getAdapter()).setLayoutType(MainActivity.ListType.LIST);
+            recyclerView.setLayoutManager(new LinearLayoutManager(currentActivity));
+        } else if (listType == MainActivity.ListType.GRID) {
+            ((BookAdapter) recyclerView.getAdapter()).setLayoutType(MainActivity.ListType.GRID);
+            recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+        }
+        reloadRecyclerView();
     }
 
     public void reloadRecyclerView() {

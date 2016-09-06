@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.appspace.evybook.R;
+import com.appspace.evybook.activity.MainActivity;
 import com.appspace.evybook.model.EvyBook;
+import com.appspace.evybook.util.Helper;
 import com.appspace.evybook.view.holder.BookDownloadHolder;
 import com.appspace.evybook.view.holder.BookHolder;
 import com.appspace.evybook.view.holder.BookReadHolder;
@@ -26,6 +28,7 @@ public class BookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
     private List<EvyBook> bookList;
     private OnEvyBookItemClickCallback callback;
+    private MainActivity.ListType layoutType;
 
     public interface OnEvyBookItemClickCallback {
         void onEvyBookItemDownloadClick(EvyBook book, int position);
@@ -46,26 +49,45 @@ public class BookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.callback = callback;
     }
 
+    public void setLayoutType(MainActivity.ListType layoutType) {
+        this.layoutType = layoutType;
+    }
+
     @Override
     public int getItemViewType(int position) {
         EvyBook book = bookList.get(position);
-        if (!hasFileInStorage(book)) // not download
-            return 0;
-        else
-            return 1;
+        if (!hasFileInStorage(book)) { // not download
+            if (layoutType == MainActivity.ListType.LIST)
+                return Helper.HOLDER_LIST_BOOK_DOWNLOAD;
+            else
+                return Helper.HOLDER_GRID_BOOK_DOWNLOAD;
+        } else {
+            if (layoutType == MainActivity.ListType.LIST)
+                return Helper.HOLDER_LIST_BOOK_READ;
+            else
+                return Helper.HOLDER_GRID_BOOK_READ;
+        }
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView;
         switch (viewType) {
-            case 0:
+            case Helper.HOLDER_LIST_BOOK_DOWNLOAD:
                 itemView = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.holder_book_download, parent, false);
+                        .inflate(R.layout.holder_book_list_download, parent, false);
                 return new BookDownloadHolder(itemView);
-            case 1:
+            case Helper.HOLDER_LIST_BOOK_READ:
                 itemView = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.holder_book_read, parent, false);
+                        .inflate(R.layout.holder_book_list_read, parent, false);
+                return new BookReadHolder(itemView);
+            case Helper.HOLDER_GRID_BOOK_DOWNLOAD:
+                itemView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.holder_book_grid_download, parent, false);
+                return new BookDownloadHolder(itemView);
+            case Helper.HOLDER_GRID_BOOK_READ:
+                itemView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.holder_book_grid_read, parent, false);
                 return new BookReadHolder(itemView);
         }
         return null;
@@ -75,14 +97,16 @@ public class BookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final EvyBook book = bookList.get(position);
         switch (holder.getItemViewType()) {
-            case 0:
+            case Helper.HOLDER_LIST_BOOK_DOWNLOAD:
+            case Helper.HOLDER_GRID_BOOK_DOWNLOAD:
                 BookDownloadHolder bookDownloadHolder = (BookDownloadHolder) holder;
                 setDataToBookHolder(bookDownloadHolder, book);
 
                 setEventToDownloadHolder(bookDownloadHolder, book, position);
 
                 break;
-            case 1:
+            case Helper.HOLDER_LIST_BOOK_READ:
+            case Helper.HOLDER_GRID_BOOK_READ:
                 BookReadHolder bookReadHolder = (BookReadHolder) holder;
                 setDataToBookHolder(bookReadHolder, book);
 

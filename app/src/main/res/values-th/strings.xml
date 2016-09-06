@@ -18,4 +18,6 @@
     <string name="read">อ่าน</string>
     <string name="title_activity_login">เข้าสู่ระบบ</string>
     <string name="title_activity_main">หนังสือของฉัน</string>
+    <string name="action_layout_list">รายการ</string>
+    <string name="action_layout_grid">ตาราง</string>
 </resources>
