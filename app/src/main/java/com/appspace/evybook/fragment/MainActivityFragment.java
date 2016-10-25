@@ -83,6 +83,7 @@ public class MainActivityFragment extends Fragment {
 
             @Override
             public void onFailure(Call<EvyBook[]> call, Throwable t) {
+                FirebaseCrash.log("loadBook()");
                 FirebaseCrash.report(t);
             }
         });

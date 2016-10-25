@@ -251,7 +251,7 @@ public class MainActivity extends AppCompatActivity implements
         if (view == btnProfile) {
             gotoLoginActivity();
         } else if (view == btnAbout) {
-            ChromeCustomTabUtil.open(this, UrlHelper.ABOUT_URL);
+            ChromeCustomTabUtil.open(MainActivity.this, UrlHelper.ABOUT_URL);
         }
     }
 

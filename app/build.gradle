@@ -23,8 +23,8 @@ android {
         applicationId "com.appspace.evybook"
         minSdkVersion 17
         targetSdkVersion 25
-        versionCode 71
-        versionName "1.5.3"
+        versionCode 72
+        versionName "1.5.4"
     }
     buildTypes {
         release {
@@ -52,6 +52,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'com.android.support:design:25.0.0'
     compile 'com.android.support:support-v4:25.0.0'
+    compile 'com.android.support:customtabs:25.0.0'
     compile 'com.google.firebase:firebase-core:9.6.1'
     compile 'com.google.firebase:firebase-crash:9.6.1'
     compile 'com.google.firebase:firebase-auth:9.6.1'
